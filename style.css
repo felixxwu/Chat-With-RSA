@@ -1,0 +1,49 @@
+:root, * {
+    font-family: 'Lexend Deca', sans-serif;
+    line-height: 1.6;
+    text-align: center;
+    --width: 800px;
+}
+
+body {
+    max-width: var(--width);
+    margin: auto;
+    padding: 0;
+    overflow-wrap: break-word;
+}
+
+.all-copy {
+    -webkit-user-select: all;  /* Chrome all / Safari all */
+    -moz-user-select: all;     /* Firefox all */
+    -ms-user-select: all;      /* IE 10+ */
+    user-select: all;          /* Likely future */   
+}
+
+.grey {
+    color: grey;
+    padding: 50px;
+}
+
+button {
+    padding: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: white;
+    background: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s;
+    margin: 50px;
+    outline: none;
+}
+
+button:hover {
+    color: black;
+    background: white;
+}
+
+textarea {
+    display: block;
+    width: var(--width);
+}

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RSA Chat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <script src="jsencrypt.min.js"></script>
+  <script src="script.js"></script>
+  <h1 id="instruction">Start a conversation</h1>
+  <div id="copyme" class="all-copy"></div>
+  <textarea id="input" cols="30" rows="10"></textarea>
+  <button id="action" onclick="action()">Start</button>
+  <!-- <button id="action2" onclick="action2()">Receive reply</button> -->
+  <div class="grey">
+    <h2>My public key:</h2>
+    <div id="public" class="all-copy">Generating key...</div>
+    <h2>My private key:</h2>
+    <div id="private" class="all-copy">Generating key...</div>
+  </div>
+</body>
+</html>
