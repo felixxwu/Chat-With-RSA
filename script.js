@@ -1,18 +1,16 @@
 const e = id => document.getElementById(id)
-const RSA = new JSEncrypt({default_key_size: 512})
+const RSA = new window.JSEncrypt({default_key_size: 512})
 const keylength = 52
 
-let public = localStorage.getItem('public')
-let private = localStorage.getItem('private')
-console.log({public})
-console.log({private})
-if (!public || public === 'null') {
-  public = RSA.getPublicKeyB64()
-  localStorage.setItem('public', public)
+let publicKey = window.localStorage.getItem('public')
+let privateKey = window.localStorage.getItem('private')
+if (!publicKey || publicKey === 'null') {
+  publicKey = RSA.getPublicKeyB64()
+  window.localStorage.setItem('public', publicKey)
 }
-if (!private || private === 'null') {
-  private = RSA.getPrivateKeyB64()
-  localStorage.setItem('private', private)
+if (!privateKey || privateKey === 'null') {
+  privateKey = RSA.getPrivateKeyB64()
+  window.localStorage.setItem('private', privateKey)
 }
 
 const delimiter = ';'
@@ -21,15 +19,15 @@ let state = 'start'
 let senderpublic = null
 let secret = null
 
-const randomKey = () => CryptoJS.lib.WordArray.random(keylength/2).toString()
+const randomKey = () => window.CryptoJS.lib.WordArray.random(keylength/2).toString()
 
 const AES = {
   encrypt: (msg, pass) => {
-    return CryptoJS.AES.encrypt(msg, pass).toString();
+    return window.CryptoJS.AES.encrypt(msg, pass).toString();
   },
   decrypt: (encrypted, pass) => {
-    var decrypted = CryptoJS.AES.decrypt(encrypted, pass);
-    return decrypted.toString(CryptoJS.enc.Utf8);
+    var decrypted = window.CryptoJS.AES.decrypt(encrypted, pass);
+    return decrypted.toString(window.CryptoJS.enc.Utf8);
   }
 }
 
@@ -61,7 +59,7 @@ const decrypt = message => {
   } else {
     const rsaEncryptedSecret = input[1]
     const aesEncryptedMsg = input[2]
-    RSA.setPrivateKey(private)
+    RSA.setPrivateKey(privateKey)
     secret = RSA.decrypt(rsaEncryptedSecret)
     e('secret').innerHTML = secret
     const decryptedmsg = AES.decrypt(aesEncryptedMsg, secret)
@@ -90,19 +88,19 @@ const encrypt = () => {
   const aesEncryptedMsg = AES.encrypt(message, secret)
   RSA.setPublicKey(senderpublic)
   const rsaEncryptedSecret = RSA.encrypt(secret)
-  copy([public, rsaEncryptedSecret, aesEncryptedMsg].join(delimiter))
+  copy([publicKey, rsaEncryptedSecret, aesEncryptedMsg].join(delimiter))
 }
 
 const test = () => {
-  const p = decodeURIComponent(encodeURIComponent(public))
+  const p = decodeURIComponent(encodeURIComponent(publicKey))
   RSA.setPublicKey(p)
-  RSA.setPrivateKey(private)
+  RSA.setPrivateKey(privateKey)
   console.log(RSA.decrypt(RSA.encrypt('Test passed.')))
 }
 
 const action = () => {
   if (state === 'start') {
-    copy('https://chatwithrsa.web.app?m=' + encodeURIComponent(public))
+    copy('https://chatwithrsa.web.app?m=' + encodeURIComponent(publicKey))
     // test()
   } else if (state === 'copy') {
     receive()
@@ -118,8 +116,8 @@ const action = () => {
 window.onload = () => {
   e('input').style.display = 'none'
   e('input').style.display = 'none'
-  e('public').innerHTML = public
-  e('private').innerHTML = private
+  e('public').innerHTML = publicKey
+  e('private').innerHTML = privateKey
 
   const urlParams = new URLSearchParams(window.location.search)
   const message = urlParams.get('m')
