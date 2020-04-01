@@ -5,16 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RSA Chat</title>
   <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap" rel="stylesheet">
+  <meta name="Description" content="Chat on any service encrypted.">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- <script src="jsencrypt.min.js"></script>
-  <script src="aes.js"></script>
-  <script src="script.js?v=8"></script> -->
-  <script src="all_scripts.min.js?v=1"></script>
   <h1 id="instruction">Start a conversation</h1>
   <div id="copyme" class="all-copy"></div>
-  <textarea id="input" rows="7"></textarea>
+  <textarea id="input" rows="7" style="display: none;"></textarea>
   <button id="action" onclick="action()">Start</button>
   <div class="grey">
     <h2>Sender's public key:</h2>
@@ -26,5 +23,9 @@
     <h2>My private key:</h2>
     <div id="private" class="all-copy">Generating key...</div>
   </div>
+  <script src="jsencrypt.min.js"></script>
+  <script src="aes.js"></script>
+  <script src="script.js?v=10"></script>
+  <!-- <script src="all_scripts.min.js?v=2"></script> -->
 </body>
 </html>

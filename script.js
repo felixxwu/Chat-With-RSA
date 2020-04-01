@@ -98,9 +98,12 @@ const test = () => {
   console.log(RSA.decrypt(RSA.encrypt('Test passed.')))
 }
 
+const encodeURL = string => encodeURIComponent(string.split('+').join('-').split('/').join('_').split('=').join('~'))
+const decodeURL = string => decodeURIComponent(string).split('-').join('+').split('_').join('/').split('~').join('=')
+
 const action = () => {
   if (state === 'start') {
-    copy('https://chatwithrsa.web.app?m=' + encodeURIComponent(publicKey))
+    copy('https://chatwithrsa.web.app?m=' + encodeURL(publicKey))
     // test()
   } else if (state === 'copy') {
     receive()
@@ -114,16 +117,14 @@ const action = () => {
 }
 
 window.onload = () => {
-  e('input').style.display = 'none'
-  e('input').style.display = 'none'
   e('public').innerHTML = publicKey
   e('private').innerHTML = privateKey
-
+  
   const urlParams = new URLSearchParams(window.location.search)
   const message = urlParams.get('m')
   if (message !== null) {
     state = 'decrypt'
-    decrypt(decodeURIComponent(message))
+    decrypt(decodeURL(message))
     const clean_uri = location.protocol + "//" + location.host + location.pathname;
     window.history.replaceState({}, document.title, clean_uri)
   }

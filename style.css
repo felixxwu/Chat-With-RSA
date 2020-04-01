@@ -20,7 +20,7 @@ body {
 }
 
 .grey {
-    color: grey;
+    color: rgb(97, 97, 97);
     padding-top: 50px;
     padding-bottom: 50px;
 }
